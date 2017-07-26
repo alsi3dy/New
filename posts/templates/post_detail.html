@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head_title %}Detail{% endblock head_title %}
+
+{% block content %}
+	<ol>
+		<li>{{instance.id}}</li>
+		<li>{{instance.title}}</li>
+		<li>{{instance.content}}</li>
+
+	</ol>
+
+	<a href="{% url 'posts:list' %}">Go back to list</a>
+{% endblock content %}

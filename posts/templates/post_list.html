@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}List{% endblock head_title %}
+
+{% block content %}
+
+<div class = "row">
+{% for iter in post_list %}
+	<div class = "col-sm-6">
+		<div class="thumbnail">
+      {#<img src="..." alt="...">#}
+      <div class="caption">
+        <h3>{{iter.title}}<small>{{iter.timestamp|timesince}} ago </small></h3>
+        <p>{{iter.content |linebreaks|truncatechars:10}}</p>
+        <p>
+	        <a href="{% url 'posts:detail' post_id=iter.id %}" class="btn btn-primary">View</a>
+	        <a href="{% url 'posts:update' post_id=iter.id %}" class="btn btn-success">Update</a>
+	        <a href="{% url 'posts:delete' post_id=iter.id %}" class="btn btn-danger">Delete</a>
+        </p>
+        </div>
+      </div>
+    </div>
+  
+
+
+	
+{% endfor %}
+
+<p>
+	<a href="{% url 'posts:create' %}" class="btn btn-primary">Create New Post?</a>
+</p>
+
+</div>
+
+
+{% endblock content %}
+
+
+{#{{x.get_absolute_url}}#}
+
+
+    {#<div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="{{x.get_absolute_url}}"><li>{{x.title}}</li></a> #}
