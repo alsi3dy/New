@@ -24,12 +24,63 @@ body {
 
 </head>
 <body>
+<nav class="navbar navbar-default navbar-fixed-top">
+<ol class="breadcrumb">
+  <li><a href="{% url 'posts:list' %}">List</a></li>
+  <li><a href="{% url 'posts:create' %}">Create</a></li>
+  <li><a href="/admin">Go to admin</a></li>
+  {% if not user.is_authenticated %} 
+
+      <li><a href="{% url 'posts:login' %}">Login</a></li>
+
+  {% endif %}
+  
+
+ 
+  <li>
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Posts <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+  	{% for iter in post_list %}
+    <li><a href="{{iter.get_absolute_url}}">{{iter.title}}</a></li>
+   	{% endfor %}
+   	</ul></li>
+   	
+   	<li>
+ <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Update Post <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+  	{% for iter in post_list %}
+    <li><a href="{% url 'posts:update' slug=iter.slug %}">{{iter.title}}</a> </li>
+    {% endfor %}
+       	</ul>
+   	</li>
+    <li>
+    {% if  request.user.is_authenticated %}
+        <li><a href="/admin/auth/user">{{request.user}}</a></li>
+        <li><a href="{% url 'posts:logout' %}">Logout</a></li>
+        {% else %}
+        
+     {% endif %}
+        </li>
+
+
+
+  </ol>
+</div></li>
+</ol>
+</nav>
+<br><br><br>
 
 <h1>здравствуйте</h1>
 
 
 
 {% include 'messages.html' %}
+
+
 
 <div class="container">
 {% block content %}

@@ -11,12 +11,14 @@
       <img src="{{instance.image.url}}" class="img-responsive">
       {% endif %}
       <div class="caption">
-        <h3>{{instance.title}}<small>{{instance.timestamp|timesince}} ago </small></h3>
+        <h3>{{instance.title}}<small>{{instance.publish|timesince}} ago </small></h3>
         <p>{{instance.content |linebreaks|truncatechars:10}}</p>
+
+        Author: {{instance.author.username}}
         <p>
 	        
-	        <a href="{% url 'posts:update' post_id=instance.id %}" class="btn btn-success">Update</a>
-	        <a href="{% url 'posts:delete' post_id=instance.id %}" class="btn btn-danger">Delete</a>
+	        <a href="{% url 'posts:update' slug=instance.slug %}" class="btn btn-success">Update</a>
+	        <a href="{% url 'posts:delete' slug=instance.slug %}" class="btn btn-danger">Delete</a>
         </p>
         <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
 		Share on Facebook
