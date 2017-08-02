@@ -35,6 +35,12 @@
 		Share on Linkedin
 	</a>
         </div>
+
+		<button class="btn" onclick="ajax_like()">
+		<span id="likes_count">{{like_count}}</span>
+		<span id = "heart" class="glyphicon glyphicon-heart {% if liked %}text-danger{% endif %}" aria-hidden="true" ></span>
+		</button>
+
         {% include "django_comments.html" %} 
 
 		
@@ -45,5 +51,38 @@
 	
 
 	<a href="{% url 'posts:list' %}">Go back to list</a>
+
+	<script> 
+	function ajax_like()
+	{
+	console.log("Like/Unlike clicked!");
+	$.ajax({
+		type: 'GET',
+		
+		url: "{% url 'posts:like_button' post_id=instance.id %}",
+		
+		error: function(){
+		console.log("I laugh the laugh of an axe-wielding madman.");}		
+		,
+		
+		success: function(data){
+
+			$("#likes_count").text(data.like_count)
+
+			if(data.action==="like"){
+				$("#heart").addClass("text-danger")
+
+			}
+			else{
+			$("#heart").removeClass("text-danger")	
+
+			}
+			
+		} ,
+
+	})
+
+	}
+	</script>
 {% endblock content %}
 

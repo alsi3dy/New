@@ -39,7 +39,10 @@ def post_receiver(sender,instance, *args, **kwargs):
 
 post_save.connect(post_receiver, sender=Post)
 
-
+class Like(models.Model):
+	user = models.ForeignKey(User) 
+	post = models.ForeignKey(Post)
+	
 
 # slug = slugify(instance.title)
 	# if new_slug is not None:
